@@ -1,7 +1,7 @@
 name: PyPI publish
 on:
   release:
-    types: [published]
+    types: [ published ]
 
 jobs:
   pypi-publish:
@@ -17,6 +17,9 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install --upgrade setuptools wheel twine
       - name: Build and publish
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
         run: |
           python setup.py sdist bdist_wheel
           twine upload dist/*
