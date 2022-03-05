@@ -5,15 +5,9 @@
 
 Chiton provides a Python wrapper to commonly used bioinformatics programs.
 
-## Setup
 
-```shell
-# PyPI
-python -m pip install chiton
+**Documentation:** [https://aaronmussig.github.io/chiton/](https://aaronmussig.github.io/chiton/)
 
-# Bioconda
-conda install -c bioconda chiton
-```
 
 ## Supported programs
 

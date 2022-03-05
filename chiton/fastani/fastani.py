@@ -17,23 +17,21 @@ def fastani(query: Union[str, Collection[str]],
             single_execution: bool = True,
             bidirectional: bool = False,
             exe: str = 'fastANI') -> FastANIResults:
+    """Run FastANI on a set of paths.
+
+    Args:
+        query: Either a path to the query genome, or a collection of paths to query genomes.
+        reference: Either a path to the reference genome, or a collection of paths to reference genomes.
+        k: kmer size <= 16 (default: 16).
+        cpus: Number of CPUs to use (default: 1).
+        frag_len: fragment length (default: 3,000).
+        min_frac: minimum fraction of genome that must be shared for trusting ANI (default: 0.2) [version >= 1.3].
+        min_frag: minimum matched fragments for trusting ANI (default: 50)  [version <= 1.2].
+        single_execution: True if --refList and --queryList should be used, otherwise a subprocess will be launched to do 1:1 comparisons.
+        bidirectional: True if the ANI should be calculated for query vs reference and vice-versa.
+        exe: The path to the execution file.
     """
-    :param query: Path to the query genome(s).
-    :param reference: Path to the reference genome(s).
-    :param k: kmer size <= 16 (default: 16)
-    :param cpus: Number of CPUs to use for parallel execution (default: 1)
-    :param frag_len: fragment length (default: 3,000)
-    :param min_frac: minimum fraction of genome that must be shared for
-                     trusting ANI (default: 0.2) [version >= 1.3]
-    :param min_frag: minimum matched fragments for trusting ANI (default: 50)
-                     [version <= 1.2].
-    :param single_execution: True if --refList and --queryList should be
-                  used, otherwise a subprocess will be launched to do 1:1
-                  comparisons.
-    :param bidirectional: True if the ANI should be calculated for query
-                          vs reference and vice-versa.
-    :param exe: The path to the execution file.
-    """
+
 
     # Transform input to a collection
     query = validate_paths(query)
