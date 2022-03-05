@@ -6,17 +6,13 @@ from chiton.fastani.logger import log
 
 
 class FastANIParameters:
-    __slots__ = ('version', 'exe', 'single_execution', 'k', 'cpus', 'frag_len',
-                 'min_frac', 'min_frag', 'bidirectional')
+    """An interface to the parameters selected for the execution."""
 
-    def __init__(self, version: int, exe: str,
-                 single_execution: bool = True,
-                 bidirectional: bool = False,
-                 k: Optional[int] = None,
-                 cpus: Optional[int] = None,
-                 frag_len: Optional[int] = None,
-                 min_frac: Optional[float] = None,
-                 min_frag: Optional[int] = None):
+    __slots__ = ('version', 'exe', 'single_execution', 'k', 'cpus', 'frag_len', 'min_frac', 'min_frag', 'bidirectional')
+
+    def __init__(self, version: int, exe: str, single_execution: bool = True, bidirectional: bool = False,
+                 k: Optional[int] = None, cpus: Optional[int] = None, frag_len: Optional[int] = None,
+                 min_frac: Optional[float] = None, min_frag: Optional[int] = None):
 
         # Nullify parameters not specific to the current version
         if cpus is not None and version == VERSIONS.index('1.0'):
@@ -34,16 +30,24 @@ class FastANIParameters:
         self.validate(k=k, frag_len=frag_len, min_frac=min_frac, min_frag=min_frag)
 
         # Set the parameters
-        self.version = version
-        self.exe = exe
-        self.k = k
-        self.cpus = cpus
-        self.frag_len = frag_len
-        self.min_frac = min_frac
-        self.min_frag = min_frag
-
-        self.single_execution = single_execution
-        self.bidirectional = bidirectional
+        #: The version of FastANI.
+        self.version: int = version
+        #: The path to the FastANI executable.
+        self.exe: str = exe
+        #: The k-mer size.
+        self.k: Optional[int] = k
+        #: The number of CPUs to use.
+        self.cpus: Optional[int] = cpus
+        #: The minimum fragment length.
+        self.frag_len: Optional[int] = frag_len
+        #: Minimum fraction of genome that must be shared for trusting ANI [version >= 1.3].
+        self.min_frac: Optional[float] = min_frac
+        #: Minimum matched fragments for trusting ANI [version <= 1.2].
+        self.min_frag: Optional[int] = min_frag
+        #: True if –refList and –queryList should be used, otherwise a subprocess will be launched to do 1 to 1 comparisons.
+        self.single_execution: bool = single_execution
+        #: True if the ANI should be calculated for query vs reference and vice-versa.
+        self.bidirectional: bool = bidirectional
 
     @property
     def k_cmd(self):
@@ -66,8 +70,7 @@ class FastANIParameters:
         return ('--minFrag', str(self.min_frag)) if self.min_frag is not None else tuple()
 
     @staticmethod
-    def validate(k: Optional[int], frag_len: Optional[int],
-                 min_frac: Optional[float], min_frag: Optional[int]):
+    def validate(k: Optional[int], frag_len: Optional[int], min_frac: Optional[float], min_frag: Optional[int]):
         errors = list()
         # kmer size
         if k is not None and (k > 16 or k < 1):
@@ -91,48 +94,58 @@ class FastANIExecution:
 
     __slots__ = ('cmd', 'stdout', 'stderr', 'return_code', 'output')
 
-    def __init__(self, cmd: str, stdout: str, stderr: str, return_code: int,
-                 output: str):
+    def __init__(self, cmd: str, stdout: str, stderr: str, return_code: int, output: str):
+        #: The command used to execute FastANI
         self.cmd: str = cmd
+        #: The stdout of the execution
         self.stdout: Optional[str] = stdout if stdout else None
+        #: The stderr of the execution
         self.stderr: Optional[str] = stderr if stderr else None
+        #: The return code of the execution
         self.return_code: int = return_code
+        #: The output of the execution, :obj:`None` if ANI <80%
         self.output: Optional[ResultFile] = ResultFile(output) if output else None
 
 
 class FastANIResult:
+    """The data associated with a FastANI output file."""
     __slots__ = ('ani', 'n_frag', 'total_frag', 'align_frac')
 
     def __init__(self, ani: float, n_frag: int, total_frag: int):
+        #: The percentage of ANI
         self.ani: float = ani
+        #: The number of aligned fragments
         self.n_frag: int = n_frag
+        #: The total number of fragments
         self.total_frag: int = total_frag
+        #: The alignment fraction
         self.align_frac: float = n_frag / total_frag
 
     def __repr__(self):
         return f'ANI={self.ani}, AF={self.align_frac:.4f}'
 
     def __eq__(self, other):
-        return isinstance(other, FastANIResult) and \
-               self.ani == other.ani and \
-               self.n_frag == other.n_frag and \
-               self.total_frag == other.total_frag
+        return isinstance(other,
+                          FastANIResult) and self.ani == other.ani and self.n_frag == other.n_frag and self.total_frag == other.total_frag
 
     def to_delimited_str(self, delimiter: str = '\t') -> str:
-        return delimiter.join(map(str, (self.ani, self.n_frag, self.total_frag,
-                                        round(self.align_frac, 4))))
+        return delimiter.join(map(str, (self.ani, self.n_frag, self.total_frag, round(self.align_frac, 4))))
 
 
 class FastANIResults:
-    """The summary of a FastANI method request."""
+    """The results from a FastANI method request."""
 
     __slots__ = ('query', 'reference', 'params', 'executions')
 
-    def __init__(self, query: FrozenSet[str], reference: FrozenSet[str],
-                 executions: Tuple[FastANIExecution], params: FastANIParameters):
-        self.query = query
-        self.reference = reference
-        self.params = params
+    def __init__(self, query: FrozenSet[str], reference: FrozenSet[str], executions: Tuple[FastANIExecution],
+                 params: FastANIParameters):
+        #: A collection of paths to the query genomes.
+        self.query: FrozenSet[str] = query
+        #: A collection of paths to the reference genomes.
+        self.reference: FrozenSet[str] = reference
+        #: The :class:`FastANIParameters` used in the execution.
+        self.params: FastANIParameters = params
+        #: The outcome of each :class:`FastANIExecution`.
         self.executions: Tuple[FastANIExecution] = executions
 
     def iter_results(self) -> Iterator[Tuple[str, str, Optional[FastANIResult]]]:
@@ -144,7 +157,14 @@ class FastANIResults:
                     yield qry, ref, result
 
     def as_dict(self) -> Dict[str, Dict[str, Optional[FastANIResult]]]:
-        """Returns the results as a dictionary of query -> reference values."""
+        """Returns the results as a dictionary of query -> reference values.
+
+        Examples:
+            >>> result = fastani(query='query.fna', reference='reference.fna')
+            >>> d_results = results.as_dict()
+            >>> d_results['query.fna']['reference.fna'].align_frac)
+            0.8
+        """
 
         # The output dictionary must be seeded with the query/reference genomes
         out = dict()
@@ -178,8 +198,7 @@ class FastANIResults:
                 for ref, result in sorted(ref_dict.items(), key=lambda x: x[0]):
                     cols = [qry, ref]
                     if result is not None:
-                        cols.extend([result.ani, result.n_frag, result.total_frag,
-                                     round(result.align_frac, 4)])
+                        cols.extend([result.ani, result.n_frag, result.total_frag, round(result.align_frac, 4)])
                     else:
                         cols.extend(['<80%', 'n/a', 'n/a', 'n/a'])
                     f.write('\t'.join(map(str, cols)) + '\n')
@@ -191,7 +210,13 @@ class ResultFile:
 
     __slots__ = ('data',)
 
-    def __init__(self, path):
+    def __init__(self, path: str):
+        """Read the content from `path` and store it in `data`.
+
+        Args:
+            path: The path to the FastANI result file.
+        """
+        #: A map of ``(query path, reference path) = result``
         self.data: Dict[Tuple[str, str], FastANIResult] = self.read(path)
 
     def __repr__(self):
