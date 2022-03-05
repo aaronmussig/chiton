@@ -1,7 +1,7 @@
 __title__ = 'chiton'
 __description__ = 'Chiton provides a Python wrapper to commonly used bioinformatics programs.'
 __url__ = 'https://github.com/aaronmussig/chiton'
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 __author__ = 'Aaron Mussig'
 __author_email__ = 'aaronmussig@gmail.com'
 __license__ = 'GNU GPLv3'
