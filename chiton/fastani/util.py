@@ -15,5 +15,5 @@ def validate_paths(paths: Union[str, Collection[str]]) -> FrozenSet[str]:
             else:
                 log.warning(f'Duplicate path ignored: {path}')
     else:
-        raise ValueError('paths must be a string or a collection of strings')
+        raise ValueError('paths must be a string, or a collection of strings')
     return frozenset(out)

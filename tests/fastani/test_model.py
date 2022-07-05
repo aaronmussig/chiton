@@ -1,7 +1,6 @@
 from unittest import TestCase
 
-from chiton.fastani.model import FastANIResult, FastANIResults
-from chiton.fastani.util import validate_paths
+from chiton.fastani.model import FastANIResult
 
 
 class TestModel(TestCase):
@@ -13,5 +12,3 @@ class TestModel(TestCase):
 
         self.assertEqual(a, b)
         self.assertNotEqual(a, c)
-
-

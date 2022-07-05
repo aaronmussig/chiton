@@ -64,7 +64,7 @@ napoleon_preprocess_types = False
 napoleon_type_aliases = None
 napoleon_attr_annotations = True
 
-autodoc_typehints = 'None'
+autodoc_typehints = 'none'
 autodoc_typehints_format = 'short'
 
 # Add any paths that contain templates here, relative to this directory.

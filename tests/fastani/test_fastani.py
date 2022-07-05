@@ -46,6 +46,24 @@ class TestFastANI(TestCase):
         self.assertEqual(result_dict[GENOMES['c']][GENOMES['a']], KNOWN_ANI['c']['a'])
         self.assertEqual(result_dict[GENOMES['d']][GENOMES['a']], KNOWN_ANI['d']['a'])
 
+    def test_execution_single_execution_in_alternate_tmp(self):
+        query = GENOMES['a']
+        reference = [GENOMES['b'], GENOMES['c'], GENOMES['d']]
+
+        with tempfile.TemporaryDirectory(prefix='new_temp_') as tmp_root:
+            result = fastani(exe='fastANI_1.33', query=query, reference=reference,
+                             single_execution=True, tmp_root=tmp_root)
+            self.assertEqual(len(result.executions), 1)
+
+        result_dict = result.as_dict()
+
+        self.assertEqual(len(result_dict), 1)
+        self.assertEqual(len(result_dict[query]), len(reference))
+
+        self.assertEqual(result_dict[query][GENOMES['b']], KNOWN_ANI['a']['b'])
+        self.assertEqual(result_dict[query][GENOMES['c']], KNOWN_ANI['a']['c'])
+        self.assertEqual(result_dict[query][GENOMES['d']], KNOWN_ANI['a']['d'])
+
     def test_execution_multi(self):
         query = GENOMES['a']
         reference = [GENOMES['b'], GENOMES['c'], GENOMES['d']]

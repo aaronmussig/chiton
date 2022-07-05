@@ -1,10 +1,18 @@
 import subprocess
 
+from chiton.fastani.config import FastAniVersion
 from chiton.fastani.exceptions import FastANIVersionUnknown
 
 
-def get_fastani_version(exe: str) -> str:
-    """Determines the version of FastANI based on the executable help text."""
+def get_fastani_version(exe: str) -> FastAniVersion:
+    """Determines the version of FastANI based on the executable help text.
+
+    Args:
+        exe: The path to the FastANI executable.
+
+    Returns:
+        The version of FastANI.
+    """
 
     proc = subprocess.Popen([exe, '--version'], stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE, encoding='utf-8')
@@ -15,11 +23,11 @@ def get_fastani_version(exe: str) -> str:
         proc = subprocess.Popen([exe, '--help'], stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE, encoding='utf-8')
         stdout, stderr = proc.communicate()
-        if proc.returncode != 0 and not 'fastANI is a fast alignment-free' in stderr:
+        if proc.returncode != 0 and 'fastANI is a fast alignment-free' not in stderr:
             raise FastANIVersionUnknown('Could not determine FastANI version')
         if '--matrix' in stderr:
-            return '1.1 or 1.2'
+            return FastAniVersion.v1_1_or_1_2
         else:
-            return '1.0'
+            return FastAniVersion.v1_0
     else:
-        return stderr.strip().split()[-1]
+        return FastAniVersion(stderr.strip().split()[-1])

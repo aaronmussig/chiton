@@ -1,27 +1,37 @@
 from typing import Collection, Dict, FrozenSet, Iterator, Tuple, Optional
 
-from chiton.fastani.config import VERSIONS
+from chiton.fastani.config import FastAniVersion
 from chiton.fastani.exceptions import FastANIParametersInvalid, FastANIException
 from chiton.fastani.logger import log
 
 
 class FastANIParameters:
-    """An interface to the parameters selected for the execution."""
+    """An interface to the parameters selected for execution."""
 
-    __slots__ = ('version', 'exe', 'single_execution', 'k', 'cpus', 'frag_len', 'min_frac', 'min_frag', 'bidirectional')
+    __slots__ = ('version', 'exe', 'single_execution', 'k', 'cpus', 'frag_len',
+                 'min_frac', 'min_frag', 'bidirectional')
 
-    def __init__(self, version: int, exe: str, single_execution: bool = True, bidirectional: bool = False,
-                 k: Optional[int] = None, cpus: Optional[int] = None, frag_len: Optional[int] = None,
-                 min_frac: Optional[float] = None, min_frag: Optional[int] = None):
+    def __init__(
+            self,
+            version: FastAniVersion,
+            exe: str,
+            single_execution: bool = True,
+            bidirectional: bool = False,
+            k: Optional[int] = None,
+            cpus: Optional[int] = None,
+            frag_len: Optional[int] = None,
+            min_frac: Optional[float] = None,
+            min_frag: Optional[int] = None
+    ):
 
         # Nullify parameters not specific to the current version
-        if cpus is not None and version == VERSIONS.index('1.0'):
+        if cpus is not None and version is FastAniVersion.v1_0:
             cpus = None
             log.warning('Multi-threading is not supported in this version and will be ignored')
-        if min_frac is not None and version < VERSIONS.index('1.3'):
+        if min_frac is not None and version in {FastAniVersion.v1_0, FastAniVersion.v1_1_or_1_2}:
             min_frac = None
             log.warning('Minimum fraction is not supported in this version and will be ignored')
-        if min_frag is not None and version > VERSIONS.index('1.1 or 1.2'):
+        if min_frag is not None and version not in {FastAniVersion.v1_0, FastAniVersion.v1_1_or_1_2}:
             min_frag = None
             log.warning('Minimum fragments is not supported in this version and will be ignored')
 
@@ -31,7 +41,7 @@ class FastANIParameters:
 
         # Set the parameters
         #: The version of FastANI.
-        self.version: int = version
+        self.version: FastAniVersion = version
         #: The path to the FastANI executable.
         self.exe: str = exe
         #: The k-mer size.
@@ -235,6 +245,20 @@ class ResultFile:
                     raise FastANIException(f'Malformed output file: {line}')
                 out[(data[0], data[1])] = FastANIResult(float(data[2]), int(data[3]), int(data[4]))
         return out
+
+
+class ExecutionParameters:
+    """An interface to non-FastANI parameters used for execution."""
+
+    __slots__ = ('show_progress', 'tmp_root', 'tmp_dir')
+
+    def __init__(self, show_progress: bool, tmp_root: str):
+        self.show_progress = show_progress
+        self.tmp_root = tmp_root
+        self.tmp_dir = tmp_root
+
+    def set_tmp_dir(self, tmp_dir: str):
+        self.tmp_dir = tmp_dir
 
 
 def write_genome_list(genomes: Collection[str], path: str):
