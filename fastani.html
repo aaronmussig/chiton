@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FastANI &mdash; chiton 1.0.0 documentation</title>
+  <title>FastANI &mdash; chiton 1.0.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -29,7 +29,7 @@
             <a href="index.html" class="icon icon-home"> chiton
           </a>
               <div class="version">
-                1.0.0
+                1.0.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -106,6 +106,33 @@
 <h2>Models<a class="headerlink" href="#models" title="Permalink to this headline"></a></h2>
 <section id="input">
 <h3>Input<a class="headerlink" href="#input" title="Permalink to this headline"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="chiton.fastani.fastani">
+<span class="sig-prename descclassname"><span class="pre">chiton.fastani.</span></span><span class="sig-name descname"><span class="pre">fastani</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cpus</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frag_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_frac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_frag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single_execution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bidirectional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fastANI'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tmp_root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/tmp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#chiton.fastani.fastani" title="Permalink to this definition"></a></dt>
+<dd><p>Run FastANI on a set of paths.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Collection</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]) – Either a path to the query genome, or a collection of paths to query genomes.</p></li>
+<li><p><strong>reference</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Collection</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]) – Either a path to the reference genome, or a collection of paths to reference genomes.</p></li>
+<li><p><strong>k</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – kmer size &lt;= 16 (default: 16).</p></li>
+<li><p><strong>cpus</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Number of CPUs to use (default: 1).</p></li>
+<li><p><strong>frag_len</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – fragment length (default: 3,000).</p></li>
+<li><p><strong>min_frac</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]) – minimum fraction of genome that must be shared for trusting ANI (default: 0.2) [version &gt;= 1.3].</p></li>
+<li><p><strong>min_frag</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – minimum matched fragments for trusting ANI (default: 50)  [version &lt;= 1.2].</p></li>
+<li><p><strong>single_execution</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – True if –refList and –queryList should be used, otherwise a subprocess will be launched to do 1:1 comparisons.</p></li>
+<li><p><strong>bidirectional</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – True if the ANI should be calculated for query vs reference and vice-versa.</p></li>
+<li><p><strong>exe</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The path to the execution file.</p></li>
+<li><p><strong>tmp_root</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The root directory used to write temporary files to.</p></li>
+<li><p><strong>show_progress</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – True if a progress bar should be shown, False otherwise.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#chiton.fastani.model.FastANIResults" title="chiton.fastani.model.FastANIResults"><code class="xref py py-class docutils literal notranslate"><span class="pre">FastANIResults</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="output">
 <h3>Output<a class="headerlink" href="#output" title="Permalink to this headline"></a></h3>
@@ -133,7 +160,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="chiton.fastani.model.FastANIResults.executions">
-<span class="sig-name descname"><span class="pre">executions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#chiton.fastani.model.FastANIExecution" title="chiton.fastani.model.FastANIExecution"><span class="pre">chiton.fastani.model.FastANIExecution</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#chiton.fastani.model.FastANIResults.executions" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">executions</span></span><a class="headerlink" href="#chiton.fastani.model.FastANIResults.executions" title="Permalink to this definition"></a></dt>
 <dd><p>The outcome of each <a class="reference internal" href="#chiton.fastani.model.FastANIExecution" title="chiton.fastani.model.FastANIExecution"><code class="xref py py-class docutils literal notranslate"><span class="pre">FastANIExecution</span></code></a>.</p>
 </dd></dl>
 
@@ -151,19 +178,19 @@ NOTE: This will only return those which had &gt;=80% ANI.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="chiton.fastani.model.FastANIResults.params">
-<span class="sig-name descname"><span class="pre">params</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#chiton.fastani.model.FastANIParameters" title="chiton.fastani.model.FastANIParameters"><span class="pre">chiton.fastani.model.FastANIParameters</span></a></em><a class="headerlink" href="#chiton.fastani.model.FastANIResults.params" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">params</span></span><a class="headerlink" href="#chiton.fastani.model.FastANIResults.params" title="Permalink to this definition"></a></dt>
 <dd><p>The <a class="reference internal" href="#chiton.fastani.model.FastANIParameters" title="chiton.fastani.model.FastANIParameters"><code class="xref py py-class docutils literal notranslate"><span class="pre">FastANIParameters</span></code></a> used in the execution.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="chiton.fastani.model.FastANIResults.query">
-<span class="sig-name descname"><span class="pre">query</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">FrozenSet</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#chiton.fastani.model.FastANIResults.query" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">query</span></span><a class="headerlink" href="#chiton.fastani.model.FastANIResults.query" title="Permalink to this definition"></a></dt>
 <dd><p>A collection of paths to the query genomes.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="chiton.fastani.model.FastANIResults.reference">
-<span class="sig-name descname"><span class="pre">reference</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">FrozenSet</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#chiton.fastani.model.FastANIResults.reference" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">reference</span></span><a class="headerlink" href="#chiton.fastani.model.FastANIResults.reference" title="Permalink to this definition"></a></dt>
 <dd><p>A collection of paths to the reference genomes.</p>
 </dd></dl>
 
@@ -175,25 +202,25 @@ NOTE: This will only return those which had &gt;=80% ANI.</p>
 <dd><p>The data associated with a FastANI output file.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="chiton.fastani.model.FastANIResult.align_frac">
-<span class="sig-name descname"><span class="pre">align_frac</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#chiton.fastani.model.FastANIResult.align_frac" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">align_frac</span></span><a class="headerlink" href="#chiton.fastani.model.FastANIResult.align_frac" title="Permalink to this definition"></a></dt>
 <dd><p>The alignment fraction</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="chiton.fastani.model.FastANIResult.ani">
-<span class="sig-name descname"><span class="pre">ani</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#chiton.fastani.model.FastANIResult.ani" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">ani</span></span><a class="headerlink" href="#chiton.fastani.model.FastANIResult.ani" title="Permalink to this definition"></a></dt>
 <dd><p>The percentage of ANI</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="chiton.fastani.model.FastANIResult.n_frag">
-<span class="sig-name descname"><span class="pre">n_frag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#chiton.fastani.model.FastANIResult.n_frag" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">n_frag</span></span><a class="headerlink" href="#chiton.fastani.model.FastANIResult.n_frag" title="Permalink to this definition"></a></dt>
 <dd><p>The number of aligned fragments</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="chiton.fastani.model.FastANIResult.total_frag">
-<span class="sig-name descname"><span class="pre">total_frag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#chiton.fastani.model.FastANIResult.total_frag" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">total_frag</span></span><a class="headerlink" href="#chiton.fastani.model.FastANIResult.total_frag" title="Permalink to this definition"></a></dt>
 <dd><p>The total number of fragments</p>
 </dd></dl>
 
@@ -208,31 +235,31 @@ NOTE: This will only return those which had &gt;=80% ANI.</p>
 <dd><p>The input, output and logs of a single FastANI execution.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="chiton.fastani.model.FastANIExecution.cmd">
-<span class="sig-name descname"><span class="pre">cmd</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#chiton.fastani.model.FastANIExecution.cmd" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">cmd</span></span><a class="headerlink" href="#chiton.fastani.model.FastANIExecution.cmd" title="Permalink to this definition"></a></dt>
 <dd><p>The command used to execute FastANI</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="chiton.fastani.model.FastANIExecution.output">
-<span class="sig-name descname"><span class="pre">output</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#chiton.fastani.model.ResultFile" title="chiton.fastani.model.ResultFile"><span class="pre">chiton.fastani.model.ResultFile</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#chiton.fastani.model.FastANIExecution.output" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">output</span></span><a class="headerlink" href="#chiton.fastani.model.FastANIExecution.output" title="Permalink to this definition"></a></dt>
 <dd><p>The output of the execution, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code> if ANI &lt;80%</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="chiton.fastani.model.FastANIExecution.return_code">
-<span class="sig-name descname"><span class="pre">return_code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#chiton.fastani.model.FastANIExecution.return_code" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">return_code</span></span><a class="headerlink" href="#chiton.fastani.model.FastANIExecution.return_code" title="Permalink to this definition"></a></dt>
 <dd><p>The return code of the execution</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="chiton.fastani.model.FastANIExecution.stderr">
-<span class="sig-name descname"><span class="pre">stderr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#chiton.fastani.model.FastANIExecution.stderr" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">stderr</span></span><a class="headerlink" href="#chiton.fastani.model.FastANIExecution.stderr" title="Permalink to this definition"></a></dt>
 <dd><p>The stderr of the execution</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="chiton.fastani.model.FastANIExecution.stdout">
-<span class="sig-name descname"><span class="pre">stdout</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#chiton.fastani.model.FastANIExecution.stdout" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">stdout</span></span><a class="headerlink" href="#chiton.fastani.model.FastANIExecution.stdout" title="Permalink to this definition"></a></dt>
 <dd><p>The stdout of the execution</p>
 </dd></dl>
 
@@ -244,7 +271,7 @@ NOTE: This will only return those which had &gt;=80% ANI.</p>
 <dd><p>A wrapper to the FastANI output file.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="chiton.fastani.model.ResultFile.data">
-<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#chiton.fastani.model.FastANIResult" title="chiton.fastani.model.FastANIResult"><span class="pre">chiton.fastani.model.FastANIResult</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#chiton.fastani.model.ResultFile.data" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#chiton.fastani.model.ResultFile.data" title="Permalink to this definition"></a></dt>
 <dd><p>A map of <code class="docutils literal notranslate"><span class="pre">(query</span> <span class="pre">path,</span> <span class="pre">reference</span> <span class="pre">path)</span> <span class="pre">=</span> <span class="pre">result</span></code></p>
 </dd></dl>
 
@@ -253,58 +280,58 @@ NOTE: This will only return those which had &gt;=80% ANI.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="chiton.fastani.model.FastANIParameters">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">chiton.fastani.model.</span></span><span class="sig-name descname"><span class="pre">FastANIParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single_execution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bidirectional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cpus</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frag_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_frac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_frag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#chiton.fastani.model.FastANIParameters" title="Permalink to this definition"></a></dt>
-<dd><p>An interface to the parameters selected for the execution.</p>
+<dd><p>An interface to the parameters selected for execution.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="chiton.fastani.model.FastANIParameters.bidirectional">
-<span class="sig-name descname"><span class="pre">bidirectional</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#chiton.fastani.model.FastANIParameters.bidirectional" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">bidirectional</span></span><a class="headerlink" href="#chiton.fastani.model.FastANIParameters.bidirectional" title="Permalink to this definition"></a></dt>
 <dd><p>True if the ANI should be calculated for query vs reference and vice-versa.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="chiton.fastani.model.FastANIParameters.cpus">
-<span class="sig-name descname"><span class="pre">cpus</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#chiton.fastani.model.FastANIParameters.cpus" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">cpus</span></span><a class="headerlink" href="#chiton.fastani.model.FastANIParameters.cpus" title="Permalink to this definition"></a></dt>
 <dd><p>The number of CPUs to use.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="chiton.fastani.model.FastANIParameters.exe">
-<span class="sig-name descname"><span class="pre">exe</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#chiton.fastani.model.FastANIParameters.exe" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">exe</span></span><a class="headerlink" href="#chiton.fastani.model.FastANIParameters.exe" title="Permalink to this definition"></a></dt>
 <dd><p>The path to the FastANI executable.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="chiton.fastani.model.FastANIParameters.frag_len">
-<span class="sig-name descname"><span class="pre">frag_len</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#chiton.fastani.model.FastANIParameters.frag_len" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">frag_len</span></span><a class="headerlink" href="#chiton.fastani.model.FastANIParameters.frag_len" title="Permalink to this definition"></a></dt>
 <dd><p>The minimum fragment length.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="chiton.fastani.model.FastANIParameters.k">
-<span class="sig-name descname"><span class="pre">k</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#chiton.fastani.model.FastANIParameters.k" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">k</span></span><a class="headerlink" href="#chiton.fastani.model.FastANIParameters.k" title="Permalink to this definition"></a></dt>
 <dd><p>The k-mer size.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="chiton.fastani.model.FastANIParameters.min_frac">
-<span class="sig-name descname"><span class="pre">min_frac</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#chiton.fastani.model.FastANIParameters.min_frac" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">min_frac</span></span><a class="headerlink" href="#chiton.fastani.model.FastANIParameters.min_frac" title="Permalink to this definition"></a></dt>
 <dd><p>Minimum fraction of genome that must be shared for trusting ANI [version &gt;= 1.3].</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="chiton.fastani.model.FastANIParameters.min_frag">
-<span class="sig-name descname"><span class="pre">min_frag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#chiton.fastani.model.FastANIParameters.min_frag" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">min_frag</span></span><a class="headerlink" href="#chiton.fastani.model.FastANIParameters.min_frag" title="Permalink to this definition"></a></dt>
 <dd><p>Minimum matched fragments for trusting ANI [version &lt;= 1.2].</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="chiton.fastani.model.FastANIParameters.single_execution">
-<span class="sig-name descname"><span class="pre">single_execution</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#chiton.fastani.model.FastANIParameters.single_execution" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">single_execution</span></span><a class="headerlink" href="#chiton.fastani.model.FastANIParameters.single_execution" title="Permalink to this definition"></a></dt>
 <dd><p>True if –refList and –queryList should be used, otherwise a subprocess will be launched to do 1 to 1 comparisons.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="chiton.fastani.model.FastANIParameters.version">
-<span class="sig-name descname"><span class="pre">version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#chiton.fastani.model.FastANIParameters.version" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">version</span></span><a class="headerlink" href="#chiton.fastani.model.FastANIParameters.version" title="Permalink to this definition"></a></dt>
 <dd><p>The version of FastANI.</p>
 </dd></dl>
 
