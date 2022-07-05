@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/aaronmussig/chiton/compare/v1.0.1...v1.1.0) (2022-07-05)
+
+
+### Features
+
+* **fastani:** Add optional parameters "tmp_root" and "show_progress". ([7f4d5f9](https://github.com/aaronmussig/chiton/commit/7f4d5f9e241317d36fb6d50189669532074d4159))
+
 ## [1.0.1](https://github.com/aaronmussig/chiton/compare/v1.0.0...v1.0.1) (2022-03-05)
 
 
